@@ -2,7 +2,7 @@
   <div class="p-8">
     <h1 class="text-3xl font-bold mb-4">Fufufafa Gallery</h1>
     <div class="flex items-center gap-4 mb-6">
-      <input v-model="searchQuery" type="text" placeholder="Search comments..." class="p-2 border border-gray-600 rounded bg-gray-800 text-white" />
+      <input v-model="searchQuery" type="text" placeholder="Search comments..." class="p-2 border border-gray-600 rounded bg-gray-800 text-white w-full sm:w-auto" />
       <button @click="search" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Search</button>
     </div>
     <div v-if="loading" class="text-gray-400">Loading...</div>
