@@ -7,17 +7,20 @@
       <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
     </button>
     <div :class="menuOpen ? 'block' : 'hidden'" class="absolute top-16 left-0 w-full bg-black bg-opacity-90 md:static md:flex md:items-center md:justify-center md:space-x-6">
-      <router-link to="/" class="block py-2 px-4 hover:text-purple-400 flex items-center">
+      <router-link to="/" class="block py-2 px-4 hover:text-purple-400 flex items-center" @click="closeMenu">
         <i class="fas fa-home mr-2"></i> Home
       </router-link>
-      <router-link to="/about" class="block py-2 px-4 hover:text-purple-400 flex items-center">
+      <router-link to="/about" class="block py-2 px-4 hover:text-purple-400 flex items-center" @click="closeMenu">
         <i class="fas fa-info-circle mr-2"></i> About
       </router-link>
-      <router-link to="/disclaimer" class="block py-2 px-4 hover:text-purple-400 flex items-center">
+      <router-link to="/disclaimer" class="block py-2 px-4 hover:text-purple-400 flex items-center" @click="closeMenu">
         <i class="fas fa-exclamation-circle mr-2"></i> Disclaimer
       </router-link>
-      <router-link to="/credit" class="block py-2 px-4 hover:text-purple-400 flex items-center">
+      <router-link to="/credit" class="block py-2 px-4 hover:text-purple-400 flex items-center" @click="closeMenu">
         <i class="fas fa-user mr-2"></i> Credit
+      </router-link>
+      <router-link to="/random" class="block py-2 px-4 hover:text-purple-400 flex items-center md:hidden" @click="closeMenu">
+        <i class="fas fa-random mr-2"></i> Random
       </router-link>
     </div>
     <button @click="$router.push('/random')" class="hidden md:flex px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 items-center gap-2">
@@ -33,6 +36,9 @@ import { ref } from 'vue'
 const menuOpen = ref(false)
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
+}
+const closeMenu = () => {
+  menuOpen.value = false
 }
 </script>
 
