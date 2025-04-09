@@ -23,16 +23,20 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import axios from 'axios'
 
 const item = ref(null)
 const loading = ref(true)
 const route = useRoute()
 
 onMounted(async () => {
-  const res = await fetch(`https://fufufafapi.vanirvan.my.id/api/${route.params.id}`)
-  if (res.ok) {
-    item.value = await res.json()
+  try {
+    const res = await axios.get(`https://fufufafapi.vanirvan.my.id/api/${route.params.id}`)
+    item.value = res.data
+  } catch (error) {
+    console.error(error)
+  } finally {
+    loading.value = false
   }
-  loading.value = false
 })
 </script>

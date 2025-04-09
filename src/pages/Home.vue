@@ -31,6 +31,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 const data = ref([])
 const loading = ref(true)
@@ -45,20 +46,32 @@ const goToDetail = (id) => {
 const search = async () => {
   loading.value = true
   errorMessage.value = ""
-  const res = await fetch(`https://fufufafapi.vanirvan.my.id/api?content=${encodeURIComponent(searchQuery.value)}`)
-  const result = await res.json()
-  if (result.error === "Quote not found") {
-    data.value = []
-    errorMessage.value = "No images found for the given search query."
-  } else {
-    data.value = result
+  try {
+    const res = await axios.get(`https://fufufafapi.vanirvan.my.id/api`, {
+      params: { content: searchQuery.value }
+    })
+    const result = res.data
+    if (result.error === "Quote not found") {
+      data.value = []
+      errorMessage.value = "No images found for the given search query."
+    } else {
+      data.value = result
+    }
+  } catch (error) {
+    console.error(error)
+  } finally {
+    loading.value = false
   }
-  loading.value = false
 }
 
 onMounted(async () => {
-  const res = await fetch('https://fufufafapi.vanirvan.my.id/api')
-  data.value = await res.json()
-  loading.value = false
+  try {
+    const res = await axios.get('https://fufufafapi.vanirvan.my.id/api')
+    data.value = res.data
+  } catch (error) {
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
 })
 </script>

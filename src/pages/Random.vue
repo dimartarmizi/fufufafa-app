@@ -22,15 +22,19 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import axios from 'axios'
 
 const item = ref(null)
 const loading = ref(true)
 
 onMounted(async () => {
-    const res = await fetch('https://fufufafapi.vanirvan.my.id/api/random')
-    if (res.ok) {
-        item.value = await res.json()
+    try {
+        const res = await axios.get('https://fufufafapi.vanirvan.my.id/api/random')
+        item.value = res.data
+    } catch (error) {
+        console.error(error)
+    } finally {
+        loading.value = false
     }
-    loading.value = false
 })
 </script>
